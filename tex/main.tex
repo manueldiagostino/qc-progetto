@@ -1,0 +1,53 @@
+\documentclass[journal]{IEEEtran}
+\renewcommand{\IEEEkeywordsname}{Keywords}
+
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\setlength{\marginparwidth}{2cm}
+\usepackage[italian, textsize=small, textwidth=2cm]{todonotes}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Codice}
+
+\usepackage{amsmath}
+\newcommand{\bigo}[1]{\ensuremath{O\left({#1}\right)}}
+\usepackage{booktabs}
+
+\begin{document}
+
+\title{Rilevamento quantistico dei bordi}
+
+\author{\IEEEauthorblockN{Manuel Di Agostino}
+\IEEEauthorblockA{\textit{Università degli studi di Parma} \\
+Parma, Italia\\
+manuel.diagostino@studenti.unipr.it}\\
+
+\IEEEauthorblockN{Leonardo Ongari}
+\IEEEauthorblockA{\textit{Università degli studi di Parma} \\
+Cremona, Italia \\
+leonardo.ongari@studenti.unipr.it}
+}
+
+\maketitle
+
+\begin{abstract}
+	Il rilevamento dei bordi è un processo fondamentale nell'estrazione delle caratteristiche di un'immagine ed è ampiamente utilizzato per analizzare la struttura degli oggetti rappresentati. Tuttavia, con l'aumento della risoluzione delle immagini, i metodi classici affrontano significative sfide computazionali a causa delle operazioni pixel-per-pixel necessarie. Il \emph{Quantum Image Processing} (QIP), offre il potenziale per accelerazioni esponenziali in determinati scenari, sfruttando algoritmi e rappresentazioni quantistici. Questo articolo esplora l'applicazione dell'algoritmo \emph{Quantum Hadamard Edge Detection} (QHED), implementato utilizzando la rappresentazione \emph{Quantum Probability Image Encoding} (QPIE). Utilizzando i principi quantistici e il framework Qiskit, si analizzano i vantaggi e le prospettive di questo nuovo approccio per il rilevamento dei bordi.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Rilevamento dei bordi, Quantum computing, Sobel.
+\end{IEEEkeywords}
+
+\input{sections/introduzione}
+
+\bibliographystyle{IEEEtran}
+% \bibliography{main}
+
+\end{document}

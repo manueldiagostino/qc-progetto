@@ -1,1 +1,12 @@
 \section{Introduzione}
+
+L'identificazione dei bordi è una tecnica fondamentale nell'elaborazione delle
+immagini, utilizzata per individuare i contorni degli oggetti e le variazioni di
+intensità in una scena. Questa metodologia rappresenta una componente cruciale
+in numerosi ambiti, dalla computer vision alla robotica, fino all'analisi medica
+delle immagini. Nonostante i progressi significativi nell'elaborazione classica
+delle immagini, l'aumento della risoluzione e della complessità dei dati visivi
+ha portato a sfide computazionali sempre maggiori, rendendo spesso i metodi
+tradizionali onerosi in termini di tempo e risorse.
+
+Nei primi anni '60, i filtri di Sobel \cite{SobelFeldman1968IsotropicGradient} e Prewitt furono introdotti come i primi metodi strutturati per il rilevamento dei bordi. Entrambi basati su operatori convolutivi, questi algoritmi utilizzano maschere discrete per approssimare il gradiente di intensità in un'immagine, rilevando così variazioni significative nei livelli di grigio. Sebbene semplici ed efficienti, essi risultano sensibili al rumore e con conseguente difficoltà nel gestire bordi sfumati. Negli anni '80, l'algoritmo di Canny~\cite{CannyPaper} rappresentò una svolta significativa grazie all'introduzione di un approccio più sofisticato al rilevamento dei bordi; ancora oggi, rimane uno tra i metodi più utilizzati. Con l'avanzare della tecnologia e l'aumento della potenza computazionale, il rilevamento dei bordi ha beneficiato dell'utilizzo di tecniche basate sull'intelligenza artificiale, come le \emph{reti neurali convoluzionali} (CNN).

@@ -12,7 +12,10 @@ tradizionali onerosi in termini di tempo e risorse.
 Nei primi anni '60, i filtri di Sobel \cite{SobelFeldman1968IsotropicGradient} e
 Prewitt furono introdotti come i primi metodi strutturati per il rilevamento dei
 bordi. Entrambi basati su operatori convolutivi, questi algoritmi utilizzano
-maschere discrete per approssimare il gradiente di intensità in un'immagine,
+maschere\footnote{Con il termine \textit{maschera} o \textit{kernel} di convoluzione 
+si fa riferimento ad una piccola griglia sovrapposta in maniera iterativa a tutti i pixel
+dell'immagine, aggiornando i valori in base ai primi vicini.} discrete per approssimare 
+il gradiente di intensità in un'immagine,
 rilevando così variazioni significative nei livelli di grigio. Sebbene semplici
 ed efficienti, essi risultano sensibili al rumore e con conseguente difficoltà
 nel gestire bordi sfumati. Negli anni '80, l'algoritmo di

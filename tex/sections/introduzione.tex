@@ -9,4 +9,28 @@ delle immagini, l'aumento della risoluzione e della complessità dei dati visivi
 ha portato a sfide computazionali sempre maggiori, rendendo spesso i metodi
 tradizionali onerosi in termini di tempo e risorse.
 
-Nei primi anni '60, i filtri di Sobel \cite{SobelFeldman1968IsotropicGradient} e Prewitt furono introdotti come i primi metodi strutturati per il rilevamento dei bordi. Entrambi basati su operatori convolutivi, questi algoritmi utilizzano maschere discrete per approssimare il gradiente di intensità in un'immagine, rilevando così variazioni significative nei livelli di grigio. Sebbene semplici ed efficienti, essi risultano sensibili al rumore e con conseguente difficoltà nel gestire bordi sfumati. Negli anni '80, l'algoritmo di Canny~\cite{CannyPaper} rappresentò una svolta significativa grazie all'introduzione di un approccio più sofisticato al rilevamento dei bordi; ancora oggi, rimane uno tra i metodi più utilizzati. Con l'avanzare della tecnologia e l'aumento della potenza computazionale, il rilevamento dei bordi ha beneficiato dell'utilizzo di tecniche basate sull'intelligenza artificiale, come le \emph{reti neurali convoluzionali} (CNN).
+Nei primi anni '60, i filtri di Sobel \cite{SobelFeldman1968IsotropicGradient} e
+Prewitt furono introdotti come i primi metodi strutturati per il rilevamento dei
+bordi. Entrambi basati su operatori convolutivi, questi algoritmi utilizzano
+maschere discrete per approssimare il gradiente di intensità in un'immagine,
+rilevando così variazioni significative nei livelli di grigio. Sebbene semplici
+ed efficienti, essi risultano sensibili al rumore e con conseguente difficoltà
+nel gestire bordi sfumati. Negli anni '80, l'algoritmo di
+Canny~\cite{CannyPaper} rappresentò una svolta significativa grazie
+all'introduzione di un approccio più sofisticato al rilevamento dei bordi;
+ancora oggi, rimane uno tra i metodi più utilizzati. Con l'avanzare della
+tecnologia e l'aumento della potenza computazionale, il rilevamento dei bordi ha
+beneficiato dell'utilizzo di tecniche basate sull'intelligenza artificiale, come
+le \emph{reti neurali convoluzionali} (CNN). Soltanto recentemente
+l'elaborazione quantistica delle immagini ha iniziato a emergere come un campo
+innovativo e promettente, aprendo la strada a potenziali accelerazioni
+esponenziali.
+
+In questo progetto sarà presentata un'applicazione del \emph{Quantum Hadamard
+Edge Detection} (QHED) \cite{Yao_2017}. La Sez. \ref{sec:background}
+offre una panoramica sulle attuali tecniche di
+rappresentazione quantistica delle immagini e una disamina delle tecniche
+utilizzate nell'esperimento. La Sez. \ref{sec:implementazione}
+è invece dedicata all'implementazione della soluzione proposta,
+utilizzando la libreria \texttt{Qiskit} \cite{Qiskit}. In ultimo, sono
+analizzati i risultati (Sez. \ref{sec:risultati}).

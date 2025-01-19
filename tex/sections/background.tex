@@ -31,3 +31,55 @@ Per un'immagine $M \times L = N$, si utilizzano $n$ bit per enumerare i pixel de
 in formato binario, dove $N = 2^n$, ottenendo una complessità rispetto ai bit esponenziale $\bigo{2^n}$.
 In questo progetto verrà mostrato come, dopo una prima fase di preparazione, è possibile risolvere
 il problema in tempo costante $\bigo{1}$.
+
+\subsection{Sistemi quantistici}
+
+Analogamente a quanto accade nei computer classici, i computer quantistici utilizzano i \textbf{quantum bit}, chiamati \emph{qubit}. I qubit rappresentano la più piccola unità di informazione e sono implementati attraverso sistemi quantistici bidimensionali. Le quantità fisiche comunemente usate per questo scopo includono lo spin di una particella o gli stati eccitati degli atomi.
+
+Assemblando più qubit, è possibile costruire sistemi quantistici la cui dinamica è descritta da spazi vettoriali complessi. Un sistema composto da un singolo qubit è completamente descritto da
+\begin{equation}
+	\ket{\psi} = \begin{bmatrix}
+		\alpha\\ \beta
+	\end{bmatrix} = \alpha \ket{0} + \beta \ket{1},\quad \alpha,\beta \in
+	\mathbb{C}
+	\label{eq:1-qubit-state}
+\end{equation}
+
+Mentre un bit classico può assumere soltanto uno tra due possibili valori
+(generalmente 0 e 1), un bit quantistico è denotato da una combinazione lineare
+dei suoi stati base, pesata dai coefficienti complessi $\alpha$ e $\beta$. Tali
+coefficienti sono detti \emph{ampiezze di probabilità} e rispettano la seguente:
+\begin{equation}
+	|\alpha|^2 + |\beta|^2 = 1
+	\label{eq:qubit-prob}
+\end{equation}
+
+Per descrivere lo stato di un sistema quantistico composto da più qubit, è
+necessario effettuare un'operazione chiamata \emph{prodotto tensoriale} tra i
+singoli stati coinvolti. Ad esempio, considerati i vettori di stati
+\[
+\ket{\psi_1} = \begin{bmatrix} a_1 \\ a_2 \end{bmatrix}, \quad \ket{\psi_2} = \begin{bmatrix} b_1 \\ b_2 \end{bmatrix},
+\]
+il loro prodotto tensore è definito come:
+\begin{equation}
+\ket{\psi_1} \otimes \ket{\psi_2}
+= \begin{bmatrix}
+a_1 \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} \\
+a_2 \begin{bmatrix} b_1 \\ b_2 \end{bmatrix}
+\end{bmatrix} =
+\begin{bmatrix}
+a_1 b_1 \\ a_1 b_2 \\ a_2 b_1 \\ a_2 b_2
+\end{bmatrix}.
+\label{eq:tensor-prod}
+\end{equation}
+Equivalentemente, può essere scritto come $\ket{\psi_1}\ket{\psi_2} \text{ o } \ket{\psi_1
+\psi_2}$.
+
+\todo{Se serve, parlare dell'entanglement}
+
+\subsection{Quantum image processing}
+
+\subsubsection*{Rappresentazione dei pixel}
+\subsubsection*{QHED}
+
+\subsection{Modellazione del rumore}

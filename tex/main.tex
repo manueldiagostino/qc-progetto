@@ -1,4 +1,4 @@
-\documentclass[journal]{IEEEtran}
+\documentclass[journal, draft]{IEEEtran}
 \renewcommand{\IEEEkeywordsname}{Keywords}
 
 \usepackage[italian]{babel}
@@ -19,6 +19,11 @@
 \usepackage{amsmath}
 \newcommand{\bigo}[1]{\ensuremath{O\left({#1}\right)}}
 \usepackage{booktabs}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\,\delimsize\vert\,\mathopen{}#2}
+\usepackage{amsmath, amssymb}
 
 \begin{document}
 

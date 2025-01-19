@@ -127,7 +127,6 @@ che venga rispettata l'Eq. \ref{eq:qubit-prob}; bisogna infatti normalizzare le 
 \end{equation}
 In Fig. \ref{fig:bw-4x4-img-qpie}
 viene mostrato il risultato della normalizzazione.
-
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\columnwidth]{QPIE_repr.png}
@@ -135,6 +134,18 @@ viene mostrato il risultato della normalizzazione.
     \label{fig:bw-4x4-img-qpie}
 \end{figure}
 
+L'immagine può quindi essere scritta come:
+\begin{equation*}
+	\ket{\text{Img}}
+		= c_0 \ket{00} + c_1 \ket{01} + c_2 \ket{10} + c_3 \ket{11}
+	\label{eq:qpie-img-2qubit}
+\end{equation*}
+che generalizzata a $n$ qubit diventa:
+\begin{equation}
+	\ket{\text{Img}}
+		= \sum_{i=1}^{2^n} c_i \ket{i}
+	\label{eq:qpie-img}
+\end{equation}
 
 
 \subsubsection*{QHED}

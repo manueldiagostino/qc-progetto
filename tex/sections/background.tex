@@ -77,9 +77,66 @@ Equivalentemente, può essere scritto come $\ket{\psi_1}\ket{\psi_2} \text{ o } 
 
 \todo{Se serve, parlare dell'entanglement}
 
-\subsection{Quantum image processing}
+\subsection{Circuiti quantistici}
 
-\subsubsection*{Rappresentazione dei pixel}
+Analogamente a quanto accade nei circuiti digitali classici, i circuiti
+quantistici eseguono calcoli manipolando le informazioni immagazzinate nei
+qubit. Questo viene realizzato attraverso dispositivi chiamati \textbf{quantum
+gate} (\emph{porte quantistiche}), che sono l'equivalente quantistico delle porte logiche classiche
+ma operano secondo i principi della meccanica quantistica. L'applicazione di una
+matrice \emph{complessa unitaria} ad uno stato quantistico modella matematicamente l'azione di un
+gate su di esso. Formalmente, data $U \in \mathcal{M}_{n \times n}(\mathbb{C})$
+l'unitaria associata ad una porta logica e dato lo stato $\ket{\psi} \in
+\mathbb{C}^n$, lo stato risultante dall'applicazione è definito come:
+\begin{equation}
+	\ket{\psi'} = U\ket{\psi}
+	\label{eq:gate-res-state}
+\end{equation}
+
+\subsection{Quantum Image Processing}
+
+La \textbf{Quantum Image Processing} (\emph{processamento quantistico
+dell'immagine}) si concentra sullo sviluppo di algoritmi in grado di codificare immagini all’interno di circuiti quantistici e di processarle utilizzando operazioni quantistiche. 
+
+\subsubsection*{Rappresentazione delle immagini} Tra le varie tecniche proposte negli
+ultimi anni, la \textbf{Quantum Probability Image Encoding (QPIE)} \cite{qpie} utilizza le ampiezze di probabilità di uno stato quantistico per memorizzare i valori dei pixel di un'immagine classica. Dati $n$ qubit, essa consente di rappresentare un'immagine in toni di grigio di $2^n$ pixel tramite una superposizione di stati. In generale, il numero di qubit necessari è calcolato tramite:
+\begin{equation}
+	n = \lceil{\log_2{N}}\rceil
+	\label{eq:qpie-n-qubit}
+\end{equation}
+
+Come mostrato in Fig.
+\ref{fig:bw-4x4-img},
+ogni pixel può essere numerato utilizzando stringhe binarie ($00,01,10,11$);
+l'intera immagine è quindi
+rappresentabile come una matrice $2\times2$ delle intensità di colore. In questa
+notazione, il singolo termine $I_{i}$ corrisponde all'intensità del pixel in posizione
+$(x,y)$ (rispetto all'angolo in alto a destra), tale per cui $i = {xy}_{10}$.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{classical_repr.png}
+		\caption{Rappresentazione di un'immagine B\&W 4x4 pixel.}
+    \label{fig:bw-4x4-img}
+\end{figure}
+
+Per rappresentare l'immagine come una superposizione di stati base, è necessario
+che venga rispettata l'Eq. \ref{eq:qubit-prob}; bisogna infatti normalizzare le singole intensità come segue:
+\begin{equation}
+	c_i = \frac{I_i}{\sqrt{\sum_{k}^{}{I_{k}^2}}}
+	\label{eq:intensities-norm}
+\end{equation}
+In Fig. \ref{fig:bw-4x4-img-qpie}
+viene mostrato il risultato della normalizzazione.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{QPIE_repr.png}
+		\caption{Rappresentazione della Fig. \ref{fig:bw-4x4-img} tramite QPIE.}
+    \label{fig:bw-4x4-img-qpie}
+\end{figure}
+
+
+
 \subsubsection*{QHED}
 
 \subsection{Modellazione del rumore}

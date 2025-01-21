@@ -151,7 +151,7 @@ uno funge da controllo sull'altro. Il gate inverte lo stato del qubit target se 
 La \textbf{Quantum Image Processing} (\emph{processamento quantistico
 dell'immagine}) si concentra sullo sviluppo di algoritmi in grado di codificare immagini all’interno di circuiti quantistici e di processarle utilizzando operazioni quantistiche. 
 
-\subsubsection*{Rappresentazione delle immagini} Tra le varie tecniche proposte negli
+\subsubsection*{Rappresentazione delle immagini}\label{sec:img-rappr} Tra le varie tecniche proposte negli
 ultimi anni, la \textbf{Quantum Probability Image Encoding (QPIE)} \cite{qpie} utilizza le ampiezze di probabilità di uno stato quantistico per memorizzare i valori dei pixel di un'immagine classica. Dati $n$ qubit, essa consente di rappresentare un'immagine in toni di grigio di $2^n$ pixel tramite una superposizione di stati. In generale, il numero di qubit necessari è calcolato tramite:
 \begin{equation}
 	n = \lceil{\log_2{N}}\rceil
@@ -206,17 +206,60 @@ che generalizzata a $n$ qubit diventa:
 L'algoritmo di \textbf{Quantum Hadamard Edge Detection (QHED)} \cite{qpie} rappresenta il
 fulcro di questo progetto. L'idea alla base è quella di utilizzare il gate di
 Hadamard. Come mostrato nella Sottosez.
-\ref{txt:hadamard}, esso trasforma
+\ref{sec:img-rappr}, esso trasforma
 $\ket{0}$ in $\ket{+}$ e, in particolare, $\ket{1}$ in $\ket{-}$. Inoltre, in
-base alla (\ref{eq:qpie-img}), ogni pixel può essere identificato
+base alla Eq. \ref{eq:qpie-img}, ogni pixel può essere identificato
 da una stringa binaria del tipo 
 \[
 	\ket{b_{n-1}b_{n-2}\ldots b_1b_0},\quad b_i \in {0,1}
 \]
-Per due pixel orizzontalmente adiacenti, le due stringhe sono:
+Per pixel orizzontalmente adiacenti presi a due a due, le stringhe sono:
 \[
 	\ket{b_{n-1}b_{n-2}\ldots b_10}, \ket{b_{n-1}b_{n-2}\ldots b_11}
 \]
-ossia si differenziano soltanto per l'ultimo bit più a destra.
+ossia si differenziano soltanto per l'ultimo qubit più a destra, denotato con $q_0$.
+
+Applicando il gate $H$ a $q_0$, si ottiene una trasformazione la cui unitaria è
+rappresentata da:
+\begin{equation*}
+	I_{2^{n-1}} \otimes H_0 = \frac{1}{\sqrt 2}\begin{bmatrix}
+		1 & 1 & 0 & 0 & \ldots & 0 & 0\\
+		1 & -1 & 0 & 0 & \ldots & 0 & 0\\
+		0 & 0 & 1 & 1 & \ldots & 0 & 0\\
+		0 & 0 & 1 & -1 & \ldots & 0 & 0\\
+		\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots\\
+		0 & 0 & 0 & 0 & \ldots & 1 & 1\\
+		0 & 0 & 0 & 0 & \ldots & 1 & -1\\
+	\end{bmatrix}
+\end{equation*}
+Se a questo punto tale trasformazione è applicata allo stato che codifica
+l'immagine nella notazione QPIE (Eq. \ref{eq:qpie-img}), si
+ottiene:
+\begin{equation}\label{eq:had-applied-simple}
+	(I_{2^{n-1}} \otimes H_0) \cdot \begin{bmatrix}
+		c_0\\ c_1\\ c_2\\ c_3\\ \vdots\\ c_{N-2}\\ c_{N-1}
+	\end{bmatrix} = \frac{1}{\sqrt 2} \begin{bmatrix}
+		c_0+c_1\\ c_0-c_1\\ c_2+c_3\\ c_2-c_3\\ \vdots\\ c_{N-2}+c_{N-1}\\ c_{N-2}-c_{N-1}
+	\end{bmatrix}
+\end{equation}
+Si noti che ciò permette di esplicitare il gradiente di coppie di pixel adiacenti, in corrispondenza dei coefficienti in posizione \emph{dispari} nel vettore di stato risultante. Lo stato del'Eq. \ref{eq:had-applied-simple} può essere riscritto come:
+\begin{align*}
+	&\frac{1}{\sqrt 2} \begin{bmatrix}
+	c_0+c_1\\ c_0-c_1\\ c_2+c_3\\ c_2-c_3\\ \vdots\\ c_{N-2}+c_{N-1}\\ c_{N-2}-c_{N-1}
+\end{bmatrix}\\
+	&=\frac{1}{\sqrt 2} 
+\left(
+\begin{bmatrix}
+c_0+c_1\\ 0\\ c_2+c_3\\ 0\\ \vdots\\ c_{N-2}+c_{N-1}\\ 0
+\end{bmatrix} + \begin{bmatrix}
+0\\ c_0-c_1\\ 0\\ c_2-c_3\\ \vdots\\ 0\\ c_{N-2}-c_{N-1}
+\end{bmatrix}
+\right)\\
+	&=\frac{1}{\sqrt 2} (\ket{\text{sum}} \otimes \ket{0}
+		+ \ket{\text{dif}} \otimes \ket{1})
+\end{align*}
+da cui si evince che misurando il circuito condizionato sul fatto che $q_0$ sia nello stato $\ket{1}$, è possibile ottenere i gradienti attraverso un'analisi statistica.
+
+
 
 \subsection{Modellazione del rumore}

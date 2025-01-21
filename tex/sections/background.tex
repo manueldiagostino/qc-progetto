@@ -93,6 +93,59 @@ l'unitaria associata ad una porta logica e dato lo stato $\ket{\psi} \in
 	\label{eq:gate-res-state}
 \end{equation}
 
+\subsubsection*{Gate rilevanti}
+
+Di seguito sono descritti alcuni gate quantistici di rilevante importanza. Tra
+questi, figurano i \emph{gate di Pauli}.
+\begin{itemize}
+	\item \textbf{X} (NOT quantistico): trasforma lo stato $\ket{0}$ in $\ket{1}$
+	e viceversa;
+	\[
+		X =\begin{bmatrix}
+			0 & 1\\
+			1 & 0
+		\end{bmatrix}
+	\]
+	\item \textbf{Y}: combina una rotazione coniugata complessa con un'inversione, utile per applicazioni che coinvolgono trasformazioni nel piano complesso;
+	\[
+		Y =\begin{bmatrix}
+			0 & -i\\
+			i & 0
+		\end{bmatrix}
+	\]
+	\item \textbf{Z}: applica una fase negativa allo stato $\ket{1}$ senza influenzare $\ket{0}$.
+	\[
+		Z =\begin{bmatrix}
+			1 & 0\\
+			0 & -1
+		\end{bmatrix}
+	\]
+\end{itemize}
+
+Altro gate fondamentale è quello di \emph{Hadamard}\label{txt:hadamard}, essenziale per creare stati
+di sovrapposizione. L'unitaria che lo rappresenta è:
+\[
+	H = \frac{1}{\sqrt 2}\begin{bmatrix}
+			1 & 1\\
+			1 & -1
+		\end{bmatrix}
+\]
+In particolare, si noti che:
+\begin{align}
+	H\ket{0} &= \frac{\ket{0} + \ket{1}}{\sqrt 2} =: \ket{+} \\
+	H\ket{1} &= \frac{\ket{0} - \ket{1}}{\sqrt 2} =: \ket{-}
+\end{align}
+
+Il \emph{Controlled-NOT} (CNOT) è un'operazione che coinvolge due qubit, dove
+uno funge da controllo sull'altro. Il gate inverte lo stato del qubit target se il qubit di controllo è $\ket{1}$. La sua matrice è:
+\[
+	\text{CNOT} = \begin{bmatrix}
+		1 & 0 & 0 & 0\\
+		0 & 1 & 0 & 0\\
+		0 & 0 & 0 & 1\\
+		0 & 0 & 1 & 0
+	\end{bmatrix}
+\]
 \subsection{Quantum Image Processing}
 
 La \textbf{Quantum Image Processing} (\emph{processamento quantistico
@@ -148,6 +201,22 @@ che generalizzata a $n$ qubit diventa:
 \end{equation}
 
 
-\subsubsection*{QHED}
+\subsection{Quantum Hadamard Edge Detection}
+
+L'algoritmo di \textbf{Quantum Hadamard Edge Detection (QHED)} \cite{qpie} rappresenta il
+fulcro di questo progetto. L'idea alla base è quella di utilizzare il gate di
+Hadamard. Come mostrato nella Sottosez.
+\ref{txt:hadamard}, esso trasforma
+$\ket{0}$ in $\ket{+}$ e, in particolare, $\ket{1}$ in $\ket{-}$. Inoltre, in
+base alla (\ref{eq:qpie-img}), ogni pixel può essere identificato
+da una stringa binaria del tipo 
+\[
+	\ket{b_{n-1}b_{n-2}\ldots b_1b_0},\quad b_i \in {0,1}
+\]
+Per due pixel orizzontalmente adiacenti, le due stringhe sono:
+\[
+	\ket{b_{n-1}b_{n-2}\ldots b_10}, \ket{b_{n-1}b_{n-2}\ldots b_11}
+\]
+ossia si differenziano soltanto per l'ultimo bit più a destra.
 
 \subsection{Modellazione del rumore}

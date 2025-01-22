@@ -258,7 +258,7 @@ c_0+c_1\\ 0\\ c_2+c_3\\ 0\\ \vdots\\ c_{N-2}+c_{N-1}\\ 0
 	&=\frac{1}{\sqrt 2} (\ket{\text{sum}} \otimes \ket{0}
 		+ \ket{\text{dif}} \otimes \ket{1})
 \end{align*}
-da cui si evince che misurando il circuito condizionato sul fatto che $q_0$ sia nello stato $\ket{1}$, è possibile ottenere i gradienti attraverso un'analisi statistica. Per ottenere i gradienti orizzontali tra coppie di pixel \emph{dispari} ($(1,2), (3,4), \ldots$), è possibile effettuare una permutazione preliminare del vettore dei qubit:
+da cui si evince che, misurando il circuito condizionato sul fatto che $q_0$ sia nello stato $\ket{1}$, è possibile ottenere i gradienti attraverso un'analisi statistica. Per ottenere i gradienti orizzontali tra coppie di pixel \emph{dispari} ($(1,2), (3,4), \ldots$), è possibile effettuare una permutazione preliminare del vettore dei qubit:
 \begin{equation}\label{eq:perm}
 	(c_0, c_1, \ldots, c_{N-1})^T \mapsto (c_1, c_2, \ldots, c_{N-1}, c_0)^T
 \end{equation}
@@ -267,7 +267,7 @@ e procedere poi con l'applicazione del circuito.
 \subsubsection*{Variazione del QHED}
 
 Per evitare la permutazione (\ref{eq:perm}), è possibile utilizzare una
-versione estesa del QHED. Essa prevede l'utilizzo di un qubit aggiuntivo,
+versione estesa del QHED. Essa prevede l'utilizzo di un qubit aggiuntivo $q_a$,
 utilizzato per creare ridondanza di informazione. Inizialmente, il qubit
 aggiuntivo è inizializzato in $\ket{0}$; segue un'applicazione del gate $H$,
 permettendo di ottenere lo stato:
@@ -298,16 +298,17 @@ per ottenere il nuovo stato:
 	\end{bmatrix}
 	\label{eq:perm-state}
 \end{equation}
-A questo punto, viene applicato il gate $H$ al qubit aggiuntivo; questo permette
+A questo punto, viene applicato il gate $H$ a $q_a$; questo permette
 di ottenere, in un'unico passo, sia i gradienti relativi alle coppie \emph{pari} sia quelli relativi alle coppie \emph{dispari}:
 \begin{equation}
-	(I_{2^n} \otimes H) \cdot \begin{bmatrix}
+	(I_{2^n} \otimes H_a) \cdot \begin{bmatrix}
 		c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}\\c_0
 	\end{bmatrix} = \begin{bmatrix}
-		c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}\\c_0
+		c_0+c_1\\c_0-c_1\\c_1+c_2\\c_1-c_2\\c_2+c_3\\c_2-c_3\\\vdots\\c_{N-1}+c_0\\c_{N-1}-c_0
 	\end{bmatrix}
 	\label{eq:h-to-adj-qubit}
 \end{equation}
-
+In ultimo è possibile ottenere, tramite analisi statistica, il valore di tutti i
+gradienti orizzontali per le misurazioni in cui $q_a$ è nello stato $\ket{1}$.
 
 \subsection{Modellazione del rumore}

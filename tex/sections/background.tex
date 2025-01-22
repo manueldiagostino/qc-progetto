@@ -242,7 +242,7 @@ ottiene:
 		c_0+c_1\\ c_0-c_1\\ c_2+c_3\\ c_2-c_3\\ \vdots\\ c_{N-2}+c_{N-1}\\ c_{N-2}-c_{N-1}
 	\end{bmatrix}
 \end{equation}
-Si noti che ciò permette di esplicitare il gradiente di coppie di pixel adiacenti, in corrispondenza dei coefficienti in posizione \emph{dispari} nel vettore di stato risultante. Lo stato del'Eq. \ref{eq:had-applied-simple} può essere riscritto come:
+Si noti che ciò permette di esplicitare il gradiente di coppie di pixel adiacenti, in corrispondenza dei coefficienti in posizione \emph{pari} nel vettore di stato risultante ($(0,1), (2,3), \ldots$). Lo stato dell'Eq. \ref{eq:had-applied-simple} può essere riscritto come:
 \begin{align*}
 	&\frac{1}{\sqrt 2} \begin{bmatrix}
 	c_0+c_1\\ c_0-c_1\\ c_2+c_3\\ c_2-c_3\\ \vdots\\ c_{N-2}+c_{N-1}\\ c_{N-2}-c_{N-1}
@@ -258,8 +258,56 @@ c_0+c_1\\ 0\\ c_2+c_3\\ 0\\ \vdots\\ c_{N-2}+c_{N-1}\\ 0
 	&=\frac{1}{\sqrt 2} (\ket{\text{sum}} \otimes \ket{0}
 		+ \ket{\text{dif}} \otimes \ket{1})
 \end{align*}
-da cui si evince che misurando il circuito condizionato sul fatto che $q_0$ sia nello stato $\ket{1}$, è possibile ottenere i gradienti attraverso un'analisi statistica.
+da cui si evince che misurando il circuito condizionato sul fatto che $q_0$ sia nello stato $\ket{1}$, è possibile ottenere i gradienti attraverso un'analisi statistica. Per ottenere i gradienti orizzontali tra coppie di pixel \emph{dispari} ($(1,2), (3,4), \ldots$), è possibile effettuare una permutazione preliminare del vettore dei qubit:
+\begin{equation}\label{eq:perm}
+	(c_0, c_1, \ldots, c_{N-1})^T \mapsto (c_1, c_2, \ldots, c_{N-1}, c_0)^T
+\end{equation}
+e procedere poi con l'applicazione del circuito.
 
+\subsubsection*{Variazione del QHED}
+
+Per evitare la permutazione (\ref{eq:perm}), è possibile utilizzare una
+versione estesa del QHED. Essa prevede l'utilizzo di un qubit aggiuntivo,
+utilizzato per creare ridondanza di informazione. Inizialmente, il qubit
+aggiuntivo è inizializzato in $\ket{0}$; segue un'applicazione del gate $H$,
+permettendo di ottenere lo stato:
+\begin{equation}
+	\ket{\text{Img}} \otimes 
+		\frac{(\ket{0} + \ket{1})}{\sqrt 2} =
+		\frac{1}{\sqrt 2} \begin{bmatrix}
+			c_0\\c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}
+		\end{bmatrix}
+\end{equation}
+Successivamente, si applica la matrice di permutazione:
+\begin{equation}
+	D_{2^{n+1}} = \begin{bmatrix}
+		0 & 1 & 0 &\ldots& 0 \\
+		0 & 0 & 1 &\ldots& 0 \\
+		\vdots & \vdots & \vdots & \ddots & \vdots \\
+		0 & 0 &\ldots & 0 & 1\\
+		1 & 0 &\ldots & 0 & 0\\
+	\end{bmatrix}
+	\label{eq:eq-perm-matrix}
+\end{equation}
+per ottenere il nuovo stato:
+\begin{equation}
+	D_{2^{n+1}} \cdot \begin{bmatrix}
+		c_0\\c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}
+	\end{bmatrix} = \begin{bmatrix}
+		c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}\\c_0
+	\end{bmatrix}
+	\label{eq:perm-state}
+\end{equation}
+A questo punto, viene applicato il gate $H$ al qubit aggiuntivo; questo permette
+di ottenere, in un'unico passo, sia i gradienti relativi alle coppie \emph{pari} sia quelli relativi alle coppie \emph{dispari}:
+\begin{equation}
+	(I_{2^n} \otimes H) \cdot \begin{bmatrix}
+		c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}\\c_0
+	\end{bmatrix} = \begin{bmatrix}
+		c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}\\c_0
+	\end{bmatrix}
+	\label{eq:h-to-adj-qubit}
+\end{equation}
 
 
 \subsection{Modellazione del rumore}

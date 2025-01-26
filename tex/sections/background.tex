@@ -165,7 +165,7 @@ l'intera immagine è quindi
 rappresentabile come una matrice $2\times2$ delle intensità di colore. In questa
 notazione, il singolo termine $I_{i}$ corrisponde all'intensità del pixel in posizione
 $(x,y)$ (rispetto all'angolo in alto a sinistra), tale per cui $i = {xy}_{10}$.
-\begin{figure}[h!]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\columnwidth]{classical_repr.png}
 		\caption{Rappresentazione di un'immagine B\&W 2x2 pixel.}
@@ -180,7 +180,7 @@ che venga rispettata l'Eq. \ref{eq:qubit-prob}; bisogna infatti normalizzare le 
 \end{equation}
 In Fig. \ref{fig:bw-4x4-img-qpie}
 viene mostrato il risultato della normalizzazione.
-\begin{figure}[h!]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\columnwidth]{QPIE_repr.png}
 		\caption{Rappresentazione della Fig. \ref{fig:bw-4x4-img} tramite QPIE.}
@@ -272,15 +272,15 @@ versione estesa del QHED. Essa prevede l'utilizzo di un qubit aggiuntivo $q_a$,
 utilizzato per creare ridondanza di informazione. Inizialmente, il qubit
 aggiuntivo è inizializzato in $\ket{0}$; segue un'applicazione del gate $H$,
 permettendo di ottenere lo stato:
-\begin{equation}
+\begin{equation*}
 	\ket{\text{Img}} \otimes 
 		\frac{(\ket{0} + \ket{1})}{\sqrt 2} =
 		\frac{1}{\sqrt 2} \begin{bmatrix}
 			c_0\\c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}
 		\end{bmatrix}
-\end{equation}
+\end{equation*}
 Successivamente, si applica la matrice di permutazione:
-\begin{equation}
+\begin{equation*}
 	D_{2^{n+1}} = \begin{bmatrix}
 		0 & 1 & 0 &\ldots& 0 \\
 		0 & 0 & 1 &\ldots& 0 \\
@@ -289,27 +289,27 @@ Successivamente, si applica la matrice di permutazione:
 		1 & 0 &\ldots & 0 & 0\\
 	\end{bmatrix}
 	\label{eq:eq-perm-matrix}
-\end{equation}
+\end{equation*}
 per ottenere il nuovo stato:
-\begin{equation}
+\begin{equation*}
 	D_{2^{n+1}} \cdot \begin{bmatrix}
 		c_0\\c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}
 	\end{bmatrix} = \begin{bmatrix}
 		c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}\\c_0
 	\end{bmatrix}
 	\label{eq:perm-state}
-\end{equation}
+\end{equation*}
 A questo punto, viene applicato il gate $H$ a $q_a$; questo permette
 di ottenere, in un'unico passo, sia i gradienti relativi alle coppie \emph{pari} sia quelli relativi alle coppie \emph{dispari}:
-\begin{equation}
+\begin{equation*}
 	(I_{2^n} \otimes H_a) \cdot \begin{bmatrix}
 		c_0\\c_1\\c_1\\c_2\\c_2\\\vdots\\c_{N-1}\\c_{N-1}\\c_0
 	\end{bmatrix} = \begin{bmatrix}
 		c_0+c_1\\c_0-c_1\\c_1+c_2\\c_1-c_2\\c_2+c_3\\c_2-c_3\\\vdots\\c_{N-1}+c_0\\c_{N-1}-c_0
 	\end{bmatrix}
 	\label{eq:h-to-adj-qubit}
-\end{equation}
+\end{equation*}
 In ultimo è possibile ottenere, tramite analisi statistica, il valore di tutti i
 gradienti orizzontali per le misurazioni in cui $q_a$ è nello stato $\ket{1}$.
 
-\subsection{Modellazione del rumore}
+% \subsection{Modellazione del rumore}

@@ -1,1 +1,54 @@
 \section{Risultati}\label{sec:risultati}
+
+\subsection{Esecuzione ideale}
+
+Nel caso ideale, l'algoritmo è stato eseguito
+utilizzando il \texttt{statevector\_simulator} di Qiskit, che consente di
+simulare un sistema quantistico ideale senza la presenza di rumore.
+
+L'immagine originale, rappresentata in Fig.~\ref{fig:16x16-original}, è stata
+elaborata tramite il simulatore, producendo il risultato mostrato in
+Fig.~\ref{fig:16x16-no-noise}. Questo risultato evidenzia chiaramente i bordi
+dell'immagine con un'elevata precisione, grazie all'assenza di fattori
+disturbanti come il rumore o le imperfezioni hardware. Questo scenario
+rappresenta il limite teorico dell'algoritmo, fornendo una base di confronto per
+valutare le prestazioni in condizioni più realistiche.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.95\columnwidth]{16x16-original.png}
+	\end{center}
+	\caption{Immagine originale.}\label{fig:16x16-original}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.95\columnwidth]{16x16-no-noise.png}
+	\end{center}
+	\caption{Risultato dell'elaborazione tramite \texttt{statevector\_simulator}.}\label{fig:16x16-no-noise}
+\end{figure}
+
+\subsection{Esecuzione con rumore simulato}
+
+Per valutare il comportamento dell'algoritmo in condizioni più vicine alla
+realtà, è stato introdotto un modello di rumore (\texttt{NoiseModel}) basato
+sull'hardware reale \texttt{ibm\_kyiv}. In questo caso, l'esecuzione quantistica
+tiene conto di fattori come decoerenza e errori di lettura, che sono comuni nei
+dispositivi quantistici attuali.
+
+La Fig.~\ref{fig:16x16-shots} mostra il risultato dell'elaborazione con
+l'inclusione del rumore, variando il numero di \textit{shots} (ossia il numero
+di ripetizioni dell'esecuzione del circuito quantistico). Si osserva che un
+numero maggiore di shots migliora il rilevamento dei bordi; inoltre, il
+risultato finale non mostra particolari differenze rispetto al caso ideale. È
+interessante notare che è possibile ottenere una buona approssimazione dei
+contorni dell'immagine già a partire da 4096 shots.
+
+\subsection{Esecuzione del circuito transpilato}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.95\columnwidth]{16x16-shots.png}
+	\end{center}
+	\caption{Risultato dell'elaborazione utilizzando \texttt{NoiseModel} e numero di shots differenti.}\label{fig:16x16-shots}
+\end{figure}

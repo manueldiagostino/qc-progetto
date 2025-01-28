@@ -13,13 +13,6 @@ dimensione $16 \times 16$ dopo la normalizzazione. Ogni pixel
 con valore ``alto'' rappresenta un risultato della misurazione 
 che può essere generata dal circuito con ampiezza di probabilità $0.14$.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{16x16.png}
-    \caption{Immagine normalizzata (ampiezze di probabilità)}
-    \label{fig:16x16intensity_img}
-\end{figure}
-
 Dato un vettore di stato composto da $2^n$ elementi, 
 il passo successivo consiste nella creazione di un circuito a $n+1$ qubit, 
 compreso quello ausiliario o \textit{ancilla qubit}.
@@ -29,8 +22,15 @@ Nel codice \ref{cod:circuit} vengono mostrate le operazioni svolte durante
 questa fase, oltre all'applicazione dei gate Hadamard e della matrice 
 di permutazione $D_{2^{n+1}}$.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{16x16.png}
+    \caption{Immagine normalizzata (ampiezze di probabilità)}
+    \label{fig:16x16intensity_img}
+\end{figure}
+
 \begin{lstlisting}[language=Python, 
-    caption={Codice Python per creazione del circuito}, label=cod:circuit]
+    caption={Codice Python per creazione del circuito orizzontale}, label=cod:circuit]
 # Convert the raw pixel values to probability amplitudes
 def amplitude_encode(img_data):
     
@@ -71,9 +71,30 @@ display(qc_v.draw('mpl', fold=-1))
 
 # Combine both circuits into a single list
 circ_list = [qc_h, qc_v]
-\end{lstlisting}
+\end{lstlisting} 
 
-\subsection{Misurazioni}
+\begin{figure}[ht]
+    \includegraphics[width=0.4\textwidth]{circuit.png}
+    \caption{Circuito per scan orizzontale su immagine $2 \times 2$}
+    \label{fig:circuit}
+\end{figure}
+
+L'output dell'implementazione per un'immagine $2 \times 2$ è mostrato in figura \ref{fig:circuit}.
+Come si può notare, l'operazione relativa al ``Decrement gate'' è 
+rappresentata come un'operazione unitaria di cui non si conoscono i dettagli.
+È possibile, tuttavia, utilizzare una rappresentazione più a basso livello 
+composta solo da porte logiche $H, X, CX$ e $CCX$ (Toffoli gate).
+Questa casistica è presentata solo per immagini di piccole dimensioni, per limitare il 
+rumore presente durante l'esecuzione. La parte di circuito a sinistra della barriera
+corrisponde alla preparazione dello stato $\ket{\psi}$: in questo caso, si tratta 
+di impostare a 1 il valore del qubit $q_1$.
+
+\begin{figure}[ht]
+    \includegraphics[width=0.4\textwidth]{low-level.png}
+    \caption{Versione del circuito a basso livello}
+\end{figure}
+
+\subsection{Simulazioni ideali}
 Le misurazioni vengono svolte inizialmente tramite simulazione, utilizzando 
 il framework \texttt{statevector\_simulator}. In questo meccanismo si lavora su 
 una simulazione di un circuito quantistico ideale, ovvero senza effetti collaterali come:
@@ -84,16 +105,67 @@ una simulazione di un circuito quantistico ideale, ovvero senza effetti collater
     \item interazioni con l'ambiente;
     \item altre tipologie di \textit{rumore}.
 \end{itemize}
-
-Non crea quindi stupore l'immagine risultante ottenuta mediante
-questa tecnica, esposta in figura \ref{fig:ideal}. 
 In un'esecuzione realistica, tuttavia, occorre tenere in considerazione
 le problematiche presentate che, molto spesso, complicano pesantemente
 il circuito e richiedono tecniche non banali di \textit{mitigazione dell'errore}.
+Per questo motivo, i risultati delle simulazioni sono stati utilizzati per 
+valutare la correttezza degli altri metodi e sono da considerarsi risultati teorici.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{ideal.png}
-    \caption{Edge detection tramite simulazione}
-    \label{fig:ideal}
-\end{figure}
+\subsection{Gestione degli errori}
+Si possono eseguire delle misurazioni significative utilizzando modelli 
+di rumore forniti dalla classe \texttt{NoiseModel} di Qiskit. 
+Per farlo, ci si connette ad uno dei backend disponibili, per esempio 
+\texttt{ibm\_kyiv} in questo caso. Da questo backend si estrapolano le 
+informazioni necessarie all'esecuzione, che questa volta si svolgerà
+tenendo conto dei possibili errori introdotti, ovvero:
+\begin{itemize}
+    \item noise model: rappresenta il modello di rumore;
+    \item basis gates: rappresentano le porte disponibili sull'hardware;
+    \item coupling map: rappresenta la mappa dei qubit dell'hardware.
+\end{itemize}
+
+Dopo aver definito queste proprietà, si prosegue con le misurazioni 
+ripetute del circuito. Nel codice \ref{cod:noise} sono mostrati 
+i comandi per estrarre le informazioni necessarie e per eseguire 
+in maniera iterativa le misurazioni del circuito, salvando i risultati 
+come statistiche da elaborare in una fase successiva.
+
+\begin{lstlisting}[language=Python, 
+caption={Codice Python per creazione del modello di rumore}, label=cod:noise]
+service = QiskitRuntimeService(channel="ibm_quantum", token="<token>")
+backend = service.backend("ibm_kyiv")
+noise_model = NoiseModel.from_backend(backend)
+coupling_map = backend.configuration().coupling_map
+basis_gates = noise_model.basis_gates
+# Unione dei circuiti in una lista unica
+circ_list = [qc_h, qc_v]
+# Array per memorizzare i risultati intermedi
+results_list = []
+
+# Iterazione per variare il numero di shots
+for exponent in range(8, 20, 2):
+    shots = 2 ** exponent
+    print(f"Running simulation with {shots} shots...")
+    
+    # Simulazione
+    result = backend.run(circ_list, shots=shots).result()
+    
+    # Estrazione conteggi
+    counts_h = result.get_counts(qc_h)
+    counts_v = result.get_counts(qc_v)
+    
+    # Salvataggio risultati 
+    results_list.append({
+        'shots': shots,
+        'counts_h': counts_h,
+        'counts_v': counts_v
+    })
+\end{lstlisting}
+
+%% spostare nei risultati
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.4\textwidth]{ideal.png}
+%     \caption{Edge detection tramite simulazione}
+%     \label{fig:ideal}
+% \end{figure}

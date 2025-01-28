@@ -1,14 +1,13 @@
 \section{Implementazione}\label{sec:implementazione}
 
 \subsection{Modellazione circuito}
-Come accennato nella sezione \ref{sec:background}, la rappresentazione 
+Come accennato nella Sez. \ref{sec:background}, la rappresentazione 
 delle immagini viene implementata attraverso la tecnica QPIE. 
 Per farlo, si utilizza una matrice associata all'immagine di partenza
 i cui elementi corrispondono ai valori d'intensità dei pixel.
 Su questa matrice viene effettuato un processo di normalizzazione.
 Il risultato è un vettore di stato, composto da ampiezze di
-probabilità relative allo stato quantistico del sistema. 
-In figura \ref{fig:16x16intensity_img} è mostrata un'immagine di 
+probabilità relative allo stato quantistico del sistema. In Fig.~\ref{fig:16x16intensity_img} è mostrata un'immagine di 
 dimensione $16 \times 16$ dopo la normalizzazione. Ogni pixel 
 con valore ``alto'' rappresenta un risultato della misurazione 
 che può essere generata dal circuito con ampiezza di probabilità $0.14$.
@@ -18,19 +17,19 @@ il passo successivo consiste nella creazione di un circuito a $n+1$ qubit,
 compreso quello ausiliario o \textit{ancilla qubit}.
 La costruzione avviene tramite applicazione di procedure Qiskit \textit{built-in} 
 all'oggetto che rappresenta il circuito.
-Nel codice \ref{cod:circuit} vengono mostrate le operazioni svolte durante
+Nel Cod. \ref{cod:circuit} vengono mostrate le operazioni svolte durante
 questa fase, oltre all'applicazione dei gate Hadamard e della matrice 
-di permutazione $D_{2^{n+1}}$.
+di shift $D_{2^{n+1}}$.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.4\textwidth]{16x16.png}
-    \caption{Immagine normalizzata (ampiezze di probabilità)}
+    \caption{Immagine normalizzata (ampiezze di probabilità).}
     \label{fig:16x16intensity_img}
 \end{figure}
 
 \begin{lstlisting}[language=Python, 
-    caption={Codice Python per creazione del circuito orizzontale}, label=cod:circuit]
+    caption={Codice Python per creazione dei circuiti.}, label=cod:circuit]
 # Convert the raw pixel values to probability amplitudes
 def amplitude_encode(img_data):
     
@@ -75,13 +74,14 @@ circ_list = [qc_h, qc_v]
 
 \begin{figure}[ht]
     \includegraphics[width=0.4\textwidth]{circuit.png}
-    \caption{Circuito per scan orizzontale su immagine $2 \times 2$}
+    \caption{Circuito per scan orizzontale su immagine $2 \times 2$.}
     \label{fig:circuit}
 \end{figure}
 
-L'output dell'implementazione per un'immagine $2 \times 2$ è mostrato in figura \ref{fig:circuit}.
-Come si può notare, l'operazione relativa al ``Decrement gate'' è 
-rappresentata come un'operazione unitaria di cui non si conoscono i dettagli.
+Il circuito ottenuto per un'immagine $2 \times 2$ è mostrato in Fig.~\ref{fig:circuit}.
+Come si può notare, l'operazione relativa alla matrice di shift (chiamata anche
+\emph{decrement gate}) è 
+rappresentata come una black-box di cui non si conoscono i dettagli.
 È possibile, tuttavia, utilizzare una rappresentazione più a basso livello 
 composta solo da porte logiche $H, X, CX$ e $CCX$ (Toffoli gate).
 Questa casistica è presentata solo per immagini di piccole dimensioni, per limitare il 
@@ -91,7 +91,7 @@ di impostare a 1 il valore del qubit $q_1$.
 
 \begin{figure}[ht]
     \includegraphics[width=0.4\textwidth]{low-level.png}
-    \caption{Versione del circuito a basso livello}
+    \caption{Versione del circuito a basso livello.}
 \end{figure}
 
 \subsection{Simulazioni ideali}
@@ -106,7 +106,7 @@ una simulazione di un circuito quantistico ideale, ovvero senza effetti collater
     \item altre tipologie di \textit{rumore}.
 \end{itemize}
 In un'esecuzione realistica, tuttavia, occorre tenere in considerazione
-le problematiche presentate che, molto spesso, complicano pesantemente
+tali problematiche che, molto spesso, complicano pesantemente
 il circuito e richiedono tecniche non banali di \textit{mitigazione dell'errore}.
 Per questo motivo, i risultati delle simulazioni sono stati utilizzati per 
 valutare la correttezza degli altri metodi e sono da considerarsi risultati teorici.
@@ -119,19 +119,18 @@ Per farlo, ci si connette ad uno dei backend disponibili, per esempio
 informazioni necessarie all'esecuzione, che questa volta si svolgerà
 tenendo conto dei possibili errori introdotti, ovvero:
 \begin{itemize}
-    \item noise model: rappresenta il modello di rumore;
-    \item basis gates: rappresentano le porte disponibili sull'hardware;
-    \item coupling map: rappresenta la mappa dei qubit dell'hardware.
+	\item \emph{noise model}: rappresenta il modello di rumore considerato;
+		\item \emph{basis gates:} rappresentano le porte disponibili sull'hardware;
+		\item \emph{coupling map:} rappresenta la disposizione fisica dei qubit sull'hardware.
 \end{itemize}
-
 Dopo aver definito queste proprietà, si prosegue con le misurazioni 
-ripetute del circuito. Nel codice \ref{cod:noise} sono mostrati 
+ripetute del circuito. Nel Cod. \ref{cod:noise} sono mostrati 
 i comandi per estrarre le informazioni necessarie e per eseguire 
 in maniera iterativa le misurazioni del circuito, salvando i risultati 
 come statistiche da elaborare in una fase successiva.
 
 \begin{lstlisting}[language=Python, 
-caption={Codice Python per creazione del modello di rumore}, label=cod:noise]
+caption={Codice Python per l'ottenimento del modello di rumore dal backend \texttt{ibm\_kyiv}.}, label=cod:noise]
 service = QiskitRuntimeService(channel="ibm_quantum", token="<token>")
 backend = service.backend("ibm_kyiv")
 noise_model = NoiseModel.from_backend(backend)

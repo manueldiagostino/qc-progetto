@@ -29,7 +29,7 @@ di shift $D_{2^{n+1}}$.
 \end{figure}
 
 \begin{lstlisting}[language=Python, 
-    caption={Codice Python per creazione dei circuiti.}, label=cod:circuit]
+    caption={Creazione dei circuiti per lo scan orizzontale e verticale.}, label=cod:circuit]
 # Convert the raw pixel values to probability amplitudes
 def amplitude_encode(img_data):
     
@@ -130,7 +130,7 @@ in maniera iterativa le misurazioni del circuito, salvando i risultati
 come statistiche da elaborare in una fase successiva.
 
 \begin{lstlisting}[language=Python, 
-caption={Codice Python per l'ottenimento del modello di rumore dal backend \texttt{ibm\_kyiv}.}, label=cod:noise]
+caption={Estrapolazione del modello di rumore dal backend \texttt{ibm\_kyiv}.}, label=cod:noise]
 service = QiskitRuntimeService(channel="ibm_quantum", token="<token>")
 backend = service.backend("ibm_kyiv")
 noise_model = NoiseModel.from_backend(backend)

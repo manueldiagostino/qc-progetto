@@ -14,14 +14,14 @@ disturbanti come il rumore o le imperfezioni hardware. Questo scenario
 rappresenta il limite teorico dell'algoritmo, fornendo una base di confronto per
 valutare le prestazioni in condizioni più realistiche.
 
-\begin{figure}
+\begin{figure}[ht]
 	\begin{center}
 		\includegraphics[width=0.95\columnwidth]{16x16-original.png}
 	\end{center}
-	\caption{Immagine originale.}\label{fig:16x16-original}
+	\caption{Esempio di immagine $16\times16$.}\label{fig:16x16-original}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[ht]
 	\begin{center}
 		\includegraphics[width=0.95\columnwidth]{16x16-no-noise.png}
 	\end{center}
@@ -44,11 +44,34 @@ risultato finale non mostra particolari differenze rispetto al caso ideale. È
 interessante notare che è possibile ottenere una buona approssimazione dei
 contorni dell'immagine già a partire da 4096 shots.
 
-\subsection{Esecuzione del circuito transpilato}
-
-\begin{figure}
+\begin{figure*}[ht]
 	\begin{center}
-		\includegraphics[width=0.95\columnwidth]{16x16-shots.png}
+		\includegraphics[width=0.95\textwidth]{16x16-shots.png}
 	\end{center}
 	\caption{Risultato dell'elaborazione utilizzando \texttt{NoiseModel} e numero di shots differenti.}\label{fig:16x16-shots}
+\end{figure*}
+
+
+\subsection{Esecuzione del circuito transpilato}
+
+È stato possibile eseguire il transpiling soltanto di circuiti relativi a
+immagini $2 \times 2$ su backend \texttt{imb\_kyiv}. Utilizzando il
+parametro \texttt{optimization\_level=3}, la versione transpilata del circuito
+rappresentato in Fig.~\ref{fig:circuito-2x2} risulta avere profondità 64. Data
+la dimensione ridotta dell'immagine e il numero di gate coinvolti, l'esecuzione
+con diverse soglie di shots non sembra essere particolarmente significativa.
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=0.6\columnwidth]{2x2-original.png}
+	\end{center}
+	\caption{Esempio di immagine $2\times2$.}\label{fig:2x2-original}
 \end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{2x2-shots.png}
+	\end{center}
+	\caption{Risultato dell'elaborazione utilizzando \texttt{NoiseModel} e numero di shots differenti su immagine $2\times2$.}\label{fig:2x2-shots}
+\end{figure}
+

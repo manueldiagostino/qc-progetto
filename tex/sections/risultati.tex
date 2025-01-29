@@ -3,29 +3,20 @@
 \subsection{Esecuzione ideale}
 
 Nel caso ideale, l'algoritmo è stato eseguito
-utilizzando il \texttt{statevector\_simulator} di Qiskit, che consente di
-simulare un sistema quantistico ideale senza la presenza di rumore.
-
-L'immagine originale, rappresentata in Fig.~\ref{fig:16x16-original}, è stata
-elaborata tramite il simulatore, producendo il risultato mostrato in
-Fig.~\ref{fig:16x16-no-noise}. Questo risultato evidenzia chiaramente i bordi
+simulando il sistema quantistico tramite \texttt{statevector\_simulator}, 
+senza la presenza di rumore. L'immagine originale,
+elaborata tramite il simulatore, produce il risultato mostrato in
+Fig.~\ref{fig:statevector-detection}. Questo risultato evidenzia chiaramente i bordi
 dell'immagine con un'elevata precisione, grazie all'assenza di fattori
 disturbanti come il rumore o le imperfezioni hardware. Questo scenario
 rappresenta il limite teorico dell'algoritmo, fornendo una base di confronto per
 valutare le prestazioni in condizioni più realistiche.
 
-\begin{figure}[ht]
-	\begin{center}
-		\includegraphics[width=0.95\columnwidth]{16x16-original.png}
-	\end{center}
-	\caption{Esempio di immagine $16\times16$.}\label{fig:16x16-original}
-\end{figure}
-
-\begin{figure}[ht]
-	\begin{center}
-		\includegraphics[width=0.95\columnwidth]{16x16-no-noise.png}
-	\end{center}
-	\caption{Risultato dell'elaborazione tramite \texttt{statevector\_simulator}.}\label{fig:16x16-no-noise}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.45\textwidth]{statevector-detection.png}
+	\caption{Risultato dell'elaborazione tramite \texttt{state\_vector}.}
+	\label{fig:statevector-detection}
 \end{figure}
 
 \subsection{Esecuzione con rumore simulato}
@@ -44,19 +35,16 @@ risultato finale non mostra particolari differenze rispetto al caso ideale. È
 interessante notare che è possibile ottenere una buona approssimazione dei
 contorni dell'immagine già a partire da 4096 shots.
 
-\begin{figure*}[ht]
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{16x16-shots.png}
-	\end{center}
-	\caption{Risultato dell'elaborazione utilizzando \texttt{NoiseModel} e numero di shots differenti.}\label{fig:16x16-shots}
-\end{figure*}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.45\textwidth]{16x16-shots.png}
+	\caption{Risultato dell'elaborazione utilizzando \texttt{NoiseModel} con numero di shots differenti.}\label{fig:16x16-shots}
+\end{figure}
 
-
-\subsection{Esecuzione del circuito transpilato}
-
+\subsection{Esecuzione del circuito ``transpiled''}
 È stato possibile eseguire il transpiling soltanto di circuiti relativi a
-immagini $2 \times 2$ su backend \texttt{imb\_kyiv}. Utilizzando il
-parametro \texttt{optimization\_level=3}, la versione transpilata del circuito
+immagini $2 \times 2$. Utilizzando il
+parametro \texttt{optimization\_level=3}, la versione ``transpiled'' del circuito
 rappresentato in Fig.~\ref{fig:circuito-2x2} risulta avere profondità 64. Data
 la dimensione ridotta dell'immagine e il numero di gate coinvolti, l'esecuzione
 con diverse soglie di shots non sembra essere particolarmente significativa.
@@ -72,6 +60,8 @@ con diverse soglie di shots non sembra essere particolarmente significativa.
 	\begin{center}
 		\includegraphics[width=0.9\columnwidth]{2x2-shots.png}
 	\end{center}
-	\caption{Risultato dell'elaborazione utilizzando \texttt{NoiseModel} e numero di shots differenti su immagine $2\times2$.}\label{fig:2x2-shots}
+	\caption{Risultato dell'elaborazione sul circuito transpiled, 
+	utilizzando \texttt{NoiseModel} con numero di shots differenti 
+	su immagine $2\times2$.}\label{fig:2x2-shots}
 \end{figure}
 

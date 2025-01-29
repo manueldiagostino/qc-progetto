@@ -98,27 +98,19 @@ di impostare a 1 il valore del qubit $q_1$.
 \subsection{Simulazioni ideali}
 Le misurazioni vengono svolte inizialmente tramite simulazione, utilizzando 
 il framework \texttt{statevector\_simulator}. In questo meccanismo si lavora su 
-una simulazione di un circuito quantistico ideale, ovvero senza effetti collaterali come:
-\begin{itemize}
-    \item fluttuazioni termiche;
-    \item interferenza elettromagnetica;
-    \item imperfezioni nelle porte quantistiche;
-    \item interazioni con l'ambiente;
-    \item altre tipologie di \textit{rumore}.
-\end{itemize}
+una simulazione di un circuito quantistico ideale, ovvero senza effetti collaterali come
+fluttuazioni termiche, imperfezioni delle porte quantistiche, interazione con l'ambiente 
+o altre tipologie di \textit{rumore}.
 In un'esecuzione realistica, tuttavia, occorre tenere in considerazione
 tali problematiche che, molto spesso, complicano pesantemente
 il circuito e richiedono tecniche non banali di \textit{mitigazione dell'errore}.
-Per questo motivo, i risultati delle simulazioni sono stati utilizzati per 
-valutare la correttezza degli altri metodi e sono da considerarsi risultati teorici.
 
 \subsection{Gestione degli errori}
 Si possono eseguire delle misurazioni significative utilizzando modelli 
 di rumore forniti dalla classe \texttt{NoiseModel} di Qiskit. 
 Per farlo, ci si connette ad uno dei backend disponibili, per esempio 
 \texttt{ibm\_kyiv} in questo caso. Da questo backend si estrapolano le 
-informazioni necessarie all'esecuzione, che questa volta si svolgerà
-tenendo conto dei possibili errori introdotti, ovvero:
+informazioni necessarie all'esecuzione, ovvero:
 \begin{itemize}
 	\item \emph{noise model}: rappresenta il modello di rumore considerato;
 		\item \emph{basis gates:} rappresentano le porte disponibili sull'hardware;

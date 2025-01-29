@@ -37,7 +37,7 @@ contorni dell'immagine già a partire da 4096 shots.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.45\textwidth]{16x16-shots.png}
+	\includegraphics[width=0.9\columnwidth]{16x16-shots.png}
 	\caption{Risultato dell'elaborazione utilizzando \texttt{NoiseModel} con numero di shots differenti.}\label{fig:16x16-shots}
 \end{figure}
 
@@ -45,21 +45,23 @@ contorni dell'immagine già a partire da 4096 shots.
 È stato possibile eseguire il transpiling soltanto di circuiti relativi a
 immagini $2 \times 2$. Utilizzando il
 parametro \texttt{optimization\_level=3}, la versione ``transpiled'' del circuito
-rappresentato in Fig.~\ref{fig:circuito-2x2} risulta avere profondità 64. Data
-la dimensione ridotta dell'immagine e il numero di gate coinvolti, l'esecuzione
+rappresentato in Fig.~\ref{fig:circuito-2x2} risulta avere profondità 64. 
+In Fig. \ref{fig:2x2-simulation} e \ref{fig:2x2-shots} viene mostrata 
+l'immagine originale, seguita dalle rispettive simulazioni, con e senza rumore.
+Viste le dimensioni ridotte dell'immagine, l'esecuzione
 con diverse soglie di shots non sembra essere particolarmente significativa.
+Nonostante questo, si può dire che il comportamento del circuito è corretto, 
+poiché i risultati coincidono con le misurazioni ottenute tramite \texttt{state\_vector}.
 
 \begin{figure}[ht]
-	\begin{center}
-		\includegraphics[width=0.6\columnwidth]{2x2-original.png}
-	\end{center}
-	\caption{Esempio di immagine $2\times2$.}\label{fig:2x2-original}
+	\centering
+	\includegraphics[width=0.9\columnwidth]{2x2-simulation.png}
+	\caption{Esempio di immagine $2\times2$.}\label{fig:2x2-simulation}
 \end{figure}
 
 \begin{figure}[ht]
-	\begin{center}
-		\includegraphics[width=0.9\columnwidth]{2x2-shots.png}
-	\end{center}
+	\centering
+	\includegraphics[width=0.9\columnwidth]{2x2-shots.png}
 	\caption{Risultato dell'elaborazione sul circuito transpiled, 
 	utilizzando \texttt{NoiseModel} con numero di shots differenti 
 	su immagine $2\times2$.}\label{fig:2x2-shots}

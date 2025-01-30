@@ -7,10 +7,13 @@ Per farlo, si utilizza una matrice associata all'immagine di partenza
 i cui elementi corrispondono ai valori d'intensità dei pixel.
 Su questa matrice viene effettuato un processo di normalizzazione.
 Il risultato è un vettore di stato, composto da ampiezze di
-probabilità relative allo stato quantistico del sistema. In Fig.~\ref{fig:16x16intensity_img} è mostrata un'immagine di 
+probabilità relative allo stato quantistico del sistema. In Fig.~\ref{fig:16x16intensity_img} 
+è mostrata un'immagine di 
 dimensione $16 \times 16$ dopo la normalizzazione. Ogni pixel 
-con valore ``alto'' rappresenta un risultato della misurazione 
-che può essere generata dal circuito con ampiezza di probabilità $0.14$.
+con valore ``alto'' rappresenta un possibile risultato della misurazione sul 
+circuito associato. Il colore indica l'ampiezza di probabilità relativa alla 
+misurazione del pixel, che a sua volta rappresenta una possibile configurazione 
+del circuito.
 
 Dato un vettore di stato composto da $2^n$ elementi, 
 il passo successivo consiste nella creazione di un circuito a $n+1$ qubit, 
@@ -84,10 +87,19 @@ Come si può notare, l'operazione relativa alla matrice di shift (chiamata anche
 rappresentata come una black-box di cui non si conoscono i dettagli.
 È possibile, tuttavia, utilizzare una rappresentazione più a basso livello 
 composta solo da porte logiche $H$, $X$, $CX$ e $CCX$ (Toffoli gate).
-Questa casistica è presentata solo per immagini di piccole dimensioni, per limitare il 
-rumore presente durante l'esecuzione. La parte di circuito a sinistra della barriera
+Questa casistica è presentata solo per immagini di piccole dimensioni: altre versioni
+introdurrebbero troppo rumore e i risultati realistici non sarebbero quindi 
+interessanti. La parte di circuito a sinistra della barriera
 corrisponde alla preparazione dello stato $\ket{\psi}$: in questo caso, si tratta 
 di impostare a 1 il valore del qubit $q_1$.
+In Fig. \ref{fig:2x2-original} e \ref{fig:circuito-2x2} viene mostrata l'immagine 
+originale e la relativa implementazione a basso livello.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\columnwidth]{2x2-original.png}
+	\caption{Esempio di immagine $2\times2$.}\label{fig:2x2-original}
+\end{figure}
 
 \begin{figure}[ht]
     \includegraphics[width=0.4\textwidth]{low-level.png}
@@ -98,31 +110,23 @@ di impostare a 1 il valore del qubit $q_1$.
 \subsection{Simulazioni ideali}
 Le misurazioni vengono svolte inizialmente tramite simulazione, utilizzando 
 il framework \texttt{statevector\_simulator}. In questo meccanismo si lavora su 
-una simulazione di un circuito quantistico ideale, ovvero senza effetti collaterali come:
-\begin{itemize}
-    \item fluttuazioni termiche;
-    \item interferenza elettromagnetica;
-    \item imperfezioni nelle porte quantistiche;
-    \item interazioni con l'ambiente;
-    \item altre tipologie di \textit{rumore}.
-\end{itemize}
+una simulazione di un circuito quantistico ideale, ovvero senza effetti collaterali come
+fluttuazioni termiche, imperfezioni delle porte quantistiche, interazione con l'ambiente 
+o altre tipologie di \textit{rumore}.
 In un'esecuzione realistica, tuttavia, occorre tenere in considerazione
 tali problematiche che, molto spesso, complicano pesantemente
 il circuito e richiedono tecniche non banali di \textit{mitigazione dell'errore}.
-Per questo motivo, i risultati delle simulazioni sono stati utilizzati per 
-valutare la correttezza degli altri metodi e sono da considerarsi risultati teorici.
 
 \subsection{Gestione degli errori}
 Si possono eseguire delle misurazioni significative utilizzando modelli 
 di rumore forniti dalla classe \texttt{NoiseModel} di Qiskit. 
 Per farlo, ci si connette ad uno dei backend disponibili, per esempio 
 \texttt{ibm\_kyiv} in questo caso. Da questo backend si estrapolano le 
-informazioni necessarie all'esecuzione, che questa volta si svolgerà
-tenendo conto dei possibili errori introdotti, ovvero:
+informazioni necessarie all'esecuzione, ovvero:
 \begin{itemize}
 	\item \emph{noise model}: rappresenta il modello di rumore considerato;
-		\item \emph{basis gates:} rappresentano le porte disponibili sull'hardware;
-		\item \emph{coupling map:} rappresenta la disposizione fisica dei qubit sull'hardware.
+    \item \emph{basis gates:} rappresentano le porte disponibili sull'hardware;
+    \item \emph{coupling map:} rappresenta la disposizione fisica dei qubit sull'hardware.
 \end{itemize}
 Dopo aver definito queste proprietà, si prosegue con le misurazioni 
 ripetute del circuito. Nel Cod. \ref{cod:noise} sono mostrati 
@@ -161,11 +165,3 @@ for exponent in range(8, 20, 2):
         'counts_v': counts_v
     })
 \end{lstlisting}
-
-%% spostare nei risultati
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.4\textwidth]{ideal.png}
-%     \caption{Edge detection tramite simulazione}
-%     \label{fig:ideal}
-% \end{figure}

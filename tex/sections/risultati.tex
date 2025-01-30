@@ -67,3 +67,21 @@ poiché i risultati coincidono con le misurazioni ottenute tramite \texttt{state
 	su immagine $2\times2$.}\label{fig:2x2-shots}
 \end{figure}
 
+\subsection{Complessità spaziale e temporale}
+
+In generale, gli algoritmi classici di rilevamento dei bordi si basano sulla
+computazione dei gradienti dell'immagine; questo significa dover identificare
+delle transizioni di intensità per ogni pixel. Data $N=2^n, n \in
+\mathbb{N}$ la dimensione dell'immagine in pixel, metodi analoghi a quello di Sobel
+hanno una complessità temporale nell'ordine di $\bigo{2^n}$, con aumento
+lineare rispetto al numero di pixel presenti. L'algoritmo QSobel risulta
+migliore ($\bigo{n^2}$), utilizzando la rappresentazione FRQI e
+richiedendo un totale di $2n+1$ qubits \cite{qhed_frqi}.
+
+L'algoritmo utilizzato in questo progetto utilizza invece soltanto $n=\log_2{N}$
+qubits, permettendo un miglioramento considerevole in termini del costo spaziale
+richiesto. Inoltre, escludendo la fase di preparazione del circuito, la
+procedura di calcolo dei gradienti tramite \emph{decrement gate} è eseguita in
+$\bigo{1}$, soglia nettamente inferiore rispetto al QSobel. Per quanto riguarda
+la fase di preparazione, lo schema QPIE richiede $\bigo{n^2}$ passi nel caso
+peggiore, leggermente superiori a quelli della FRQI ($\bigo{n}+\bigo{\log^2{n}}$).

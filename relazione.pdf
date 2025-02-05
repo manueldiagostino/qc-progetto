@@ -1,0 +1,108 @@
+\documentclass[journal]{IEEEtran}
+\renewcommand{\IEEEkeywordsname}{Keywords}
+
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\setlength{\marginparwidth}{2cm}
+\usepackage[italian, textsize=small, textwidth=2cm]{todonotes}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Codice}
+
+\usepackage{amsmath}
+\newcommand{\bigo}[1]{\ensuremath{O\left({#1}\right)}}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\,\delimsize\vert\,\mathopen{}#2}
+\usepackage{amsmath, amssymb}
+
+\usepackage{listings,newtxtt,xcolor}
+% Define custom colors
+\definecolor{keywordcolor}{rgb}{0.1, 0.1, 0.75}  % Blue for keywords
+\definecolor{stringcolor}{rgb}{0.1, 0.5, 0.1}    % Green for strings
+\definecolor{commentcolor}{rgb}{0.5, 0.5, 0.5}   % Gray for comments
+\definecolor{bgcolor}{rgb}{0.95, 0.95, 0.95}     % Light gray background
+
+% Configure lstset for Python
+\lstset{
+    language=Python,                    % Set the language to Python
+    backgroundcolor=\color{bgcolor},   % Background color for code
+    basicstyle=\ttfamily\footnotesize, 
+	keywordstyle=\color{keywordcolor}\bfseries, % Keywords in bold blue
+    stringstyle=\color{stringcolor},   % Strings in green
+    commentstyle=\color{commentcolor}\itshape, % Comments in italic gray
+    identifierstyle=,                  % Default identifier style
+    showstringspaces=false,            % Don't show spaces in strings
+    numbers=left,                      % Line numbers on the left
+    numberstyle=\tiny\color{commentcolor}, % Line number style
+    numbersep=5pt, % Spaziatura dei numeri di riga
+    %  frame=single, % Cornice intorno al blocco di codice
+    % framerule=0.1pt,
+    linewidth=0.98\columnwidth,
+    stepnumber=1,                      % Line numbers increment by 1
+    tabsize=4,                         % Tab size
+    breaklines=true,                   % Automatically break long lines
+    breakatwhitespace=true,            % Break lines only at whitespace
+    frame=none,                      % Draw a box around the code
+    captionpos=b,                      % Caption position: b for bottom
+    escapeinside={(*@}{@*)},           % Escape to LaTeX between (*@ and @*)
+}
+
+\usepackage{graphicx}
+\graphicspath{{sections/images/}}
+
+\begin{document}
+
+\title{Rilevamento quantistico dei bordi}
+
+\author{\IEEEauthorblockN{Manuel Di Agostino}
+\IEEEauthorblockA{\textit{Università degli studi di Parma} \\
+Parma, Italia\\
+manuel.diagostino@studenti.unipr.it}\\
+
+\IEEEauthorblockN{Leonardo Ongari}
+\IEEEauthorblockA{\textit{Università degli studi di Parma} \\
+Cremona, Italia \\
+leonardo.ongari@studenti.unipr.it}
+}
+
+\maketitle
+
+\begin{abstract}
+	Il rilevamento dei bordi è un processo fondamentale nell'estrazione delle 
+	caratteristiche di un'immagine ed è ampiamente utilizzato per analizzare 
+	la struttura degli oggetti rappresentati. Tuttavia, con l'aumento della 
+	risoluzione delle immagini, i metodi classici affrontano significative 
+	sfide computazionali a causa delle operazioni pixel-per-pixel necessarie. 
+	Il \emph{Quantum Image Processing} (QIP), offre il potenziale per accelerazioni 
+	esponenziali in determinati scenari, sfruttando algoritmi e rappresentazioni 
+	in forma quantistica. Questo articolo esplora l'applicazione dell'algoritmo 
+	\emph{Quantum Hadamard Edge Detection} (QHED), implementato utilizzando la 
+	rappresentazione \emph{Quantum Probability Image Encoding} (QPIE). 
+	Utilizzando i principi quantistici e il framework Qiskit, si analizzano 
+	i vantaggi e le prospettive di questo nuovo approccio per il rilevamento dei bordi.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Rilevamento dei bordi, Quantum computing, Sobel.
+\end{IEEEkeywords}
+
+\input{sections/introduzione}
+\input{sections/background}
+\input{sections/implementazione}
+\input{sections/risultati}
+\input{sections/conclusione}
+
+\bibliographystyle{IEEEtran}
+\bibliography{main}
+
+\end{document}
